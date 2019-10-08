@@ -11,6 +11,7 @@
 using namespace std::literals;
 
 int main(int argc, char** argv) {
+    std::ios::sync_with_stdio(false);
     GeneralStore gstore{IniConfig{"config.ini"}};
 
     logger.info("libvirt server URI: ", gstore.config().getConnURI());
