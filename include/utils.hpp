@@ -40,3 +40,15 @@ template <typename Container, typename T> unsigned reverse_search(const Containe
     const auto it = std::find(c.begin(), c.end(), e);
     return static_cast<unsigned>(std::distance(c.begin(), it));
 }
+
+template <class Fcn, class... Args> struct ScopeGuard {
+    Fcn fcn;
+    std::tuple<Args...> args;
+
+    explicit ScopeGuard(Fcn fcn, Args... args) : fcn(fcn), args(std::forward_as_tuple(args...)) {}
+    ScopeGuard(const ScopeGuard&) = delete;
+    ScopeGuard(ScopeGuard&&) = delete;
+    ScopeGuard& operator=(const ScopeGuard&) = delete;
+    ScopeGuard& operator=(ScopeGuard&&) = delete;
+    ~ScopeGuard() { fcn(args); }
+};
